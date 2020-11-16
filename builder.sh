@@ -14,7 +14,16 @@ git pull --rebase
 echo "Applying patches"
 git apply --ignore-whitespace /patches/*.patch
 
-make -C src "${TARGETS[@]}"
+for target in "${TARGETS[@]}"; do
+	buildopts=()
+	if [[ "$target" =~ ^bin-arm32-efi/.*$ ]]; then
+		buildopts+=("CROSS_COMPILE=arm-linux-gnueabi-" "ARCH=arm32")
+	elif [[ "$target" =~ ^bin-arm64-efi/.*$ ]]; then
+		buildopts+=("CROSS_COMPILE=aarch64-linux-gnu-" "ARCH=arm64")
+	fi
+
+	make -C src "${buildopts[@]}" "$target"
+done
 
 echo
 echo "Build finished successfully!"

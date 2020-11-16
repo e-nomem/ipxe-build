@@ -9,7 +9,7 @@ image-build: $(IMAGE_BUILD)
 
 .PHONY: build
 build: clean image-build
-	@docker-compose run ipxe
+	@docker-compose run --rm ipxe
 
 # Hidden target here to ensure the image is built
 # only when the Dockerfile is actually updated

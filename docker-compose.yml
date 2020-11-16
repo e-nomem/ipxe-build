@@ -9,6 +9,6 @@ ipxe:
         - bin-arm64-efi/snponly.efi
     volumes:
         - ./builder.sh:/builder.sh:ro
-        - ./patches:/patches:ro
+        - ./local-config:/build/ipxe/src/config/homelab:ro
         - ./out:/out:rw
     working_dir: /build/ipxe

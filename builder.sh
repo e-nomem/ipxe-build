@@ -11,11 +11,8 @@ echo "Cleaning and updating git repo"
 git clean -fxq
 git pull --rebase
 
-echo "Applying patches"
-git apply --ignore-whitespace /patches/*.patch
-
 for target in "${TARGETS[@]}"; do
-	buildopts=()
+	buildopts=("CONFIG=homelab")
 	if [[ "$target" =~ ^bin-arm32-efi/.*$ ]]; then
 		buildopts+=("CROSS_COMPILE=arm-linux-gnueabi-" "ARCH=arm32")
 	elif [[ "$target" =~ ^bin-arm64-efi/.*$ ]]; then

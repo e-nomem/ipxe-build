@@ -1,0 +1,13 @@
+ipxe: 
+    build: .
+    command: sh -c 'rm -rf /out/*;
+                    git clean -fx &&
+                    git pull --rebase &&
+                    git apply -v --ignore-whitespace /patches/*.patch &&
+                    make -C src clean &&
+                    make -C src bin/undionly.kpxe &&
+                    cp -v src/bin/undionly.kpxe /out/.'
+    volumes:
+        - ./patches:/patches:ro
+        - ./out:/out:rw
+    working_dir: /build/ipxe

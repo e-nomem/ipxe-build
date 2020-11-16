@@ -6,7 +6,7 @@ ipxe:
                     git apply -v --ignore-whitespace /patches/*.patch &&
                     make -C src clean &&
                     make -C src bin/undionly.kpxe &&
-                    cp -v src/bin/undionly.kpxe /out/.'
+                    cp -v src/bin/undionly.kpxe /out/'
     volumes:
         - ./patches:/patches:ro
         - ./out:/out:rw

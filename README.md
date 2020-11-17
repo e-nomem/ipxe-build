@@ -8,13 +8,6 @@ Reasons you may want to do this:
 
 To find out more about what you can do with iPXE, check out the [project homepage](https://ipxe.org).
 
-## How it works
-The [Dockerfile](./Dockerfile) within this project creates a minimal environment that has the build dependencies installed and the iPXE source code cloned directly from the main git repo. The built container image does not contain the build script or custom configuration, and this is intentional. This way, the image does not need to be rebuilt when the build script or configuration are updated.
-
-The [build script](./builder.sh) does the actual job of building the targets specified, including finding an embed script (if one exists), managing the cross-compilation args, and copying out the built artifacts.
-
-The [docker-compose.yml](./docker-compose.yml) is the main file that contains all the customization. It ensures that the docker image is built, and that the external files are mounted into the correct locations within the container.
-
 ## How to use
 1. Clone and enter the repo
 ```bash
@@ -47,3 +40,10 @@ To embed your iPXE image with a script, place the script in your configuration d
 ## Troubleshooting
 ### The docker image is missing
 The makefile tracks a local file (`.image-build-done`) to determine if the docker image needs to be rebuilt or not. If the docker image gets deleted, the Makefile will not notice. `make taint-image` will delete this hidden tracking file and force a rebuild of the image on the next run.
+
+## How it works
+The [Dockerfile](./Dockerfile) within this project creates a minimal environment that has the build dependencies installed and the iPXE source code cloned directly from the main git repo. The built container image does not contain the build script or custom configuration, and this is intentional. This way, the image does not need to be rebuilt when the build script or configuration are updated.
+
+The [build script](./builder.sh) does the actual job of building the targets specified, including finding an embed script (if one exists), managing the cross-compilation args, and copying out the built artifacts.
+
+The [docker-compose.yml](./docker-compose.yml) is the main file that contains all the customization. It ensures that the docker image is built, and that the external files are mounted into the correct locations within the container.

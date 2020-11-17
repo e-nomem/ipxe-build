@@ -18,4 +18,4 @@ RUN \
 	&& \
 	apt clean && \
 	git clone git://git.ipxe.org/ipxe.git /build/ipxe
-WORKDIR /build/ipxe
+WORKDIR /build/ipxe/src

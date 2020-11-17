@@ -1,6 +1,6 @@
 ipxe: 
     build: .
-    working_dir: /build/ipxe
+    working_dir: /build/ipxe/src
     command:
         - /builder.sh
         # --> Add build targets here <--

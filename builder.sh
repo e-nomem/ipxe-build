@@ -21,8 +21,8 @@ done
 CONFIG="homelab"
 
 # If there is an embed script with the named config, use it
-if [[ -f "src/config/$CONFIG/embed.ipxe" ]]; then
-	EMBED="src/config/$CONFIG/embed.ipxe"
+if [[ -f "config/$CONFIG/embed.ipxe" ]]; then
+	EMBED="config/$CONFIG/embed.ipxe"
 else
 	EMBED=""
 fi
@@ -42,8 +42,8 @@ for target in "${TARGETS[@]}"; do
 		buildopts+=("CROSS_COMPILE=aarch64-linux-gnu-" "ARCH=arm64")
 	fi
 
-	echo "make -C src ${buildopts[@]} $target"
-	make -C src "${buildopts[@]}" "$target"
+	echo "make ${buildopts[@]} $target"
+	make "${buildopts[@]}" "$target"
 done
 
 echo
@@ -53,9 +53,9 @@ echo
 echo "Copying build artifacts:"
 for bin in "${TARGETS[@]}"; do
 	mkdir -p "$(dirname "/out/$bin")"
-	cp -v "src/$bin" "/out/$bin"
+	cp -v "$bin" "/out/$bin"
 done
 
 echo
 echo "Building tarball:"
-tar czvf /out/ipxe-bundle.tar.gz -C src "${TARGETS[@]}"
+tar czvf /out/ipxe-bundle.tar.gz "${TARGETS[@]}"

@@ -4,6 +4,9 @@ IMAGE_BUILD = .image-build-done
 clean:
 	rm -rf out/
 
+.PHONY: purge
+purge: clean taint-image
+
 .PHONY: image-build
 image-build: $(IMAGE_BUILD)
 
@@ -16,3 +19,7 @@ build: clean image-build
 $(IMAGE_BUILD): Dockerfile
 	@docker-compose build
 	@touch $@
+
+.PHONY: taint-image
+taint-image:
+	rm -f $(IMAGE_BUILD)

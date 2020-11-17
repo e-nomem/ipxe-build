@@ -1,0 +1,2 @@
+#!ipxe
+prompt --key 0x02 Press Ctrl-B for the iPXE command line... && shell

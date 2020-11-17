@@ -4,7 +4,7 @@ ipxe:
     command:
         - /builder.sh
         # Config name. Ensure it matches the destination volume path below
-        - homelab
+        - template
         # --> Add build targets here <--
         - bin-i386-pcbios/undionly.kpxe
         - bin-i386-efi/ipxe.efi
@@ -18,5 +18,5 @@ ipxe:
         # Mount your custom config into /build/ipxe/src/config/<config name>
         # The config name used here should match the config name passed to the builder
         # as the first arg.
-        # - ./example-config:/build/ipxe/src/config/example:ro
-        - ./local-config:/build/ipxe/src/config/homelab:ro
+        - ./template:/build/ipxe/src/config/template:ro
+        - ./homelab:/build/ipxe/src/config/homelab:ro

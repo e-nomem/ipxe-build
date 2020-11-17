@@ -1,24 +1,34 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ $# -eq 0 ]]; then
-	echo "#----------------------------------------------------------#"
-	echo "# To use this script, pass a list of make targets as args. #"
-	echo "# They can be added to the command array inside the        #"
-	echo "# docker-compose.yml file. See the README for more info    #"
-	echo "#----------------------------------------------------------#"
+if [[ $# -lt 2 ]]; then
+	echo
+	cat <<EOF
+#----------------------------------------------------------#
+# To use this script, pass a config and a list of make     #
+# targets as args. They can be added to the command array  #
+# inside the docker-compose.yml file. See the README for   #
+# more info.                                               #
+#----------------------------------------------------------#
+EOF
+	echo
 	exit 1
 fi
+
+CONFIG="$1"
+shift
+if [[ ! -d "config/$CONFIG" ]]; then
+	echo "Could not find config directory /build/ipxe/src/config/$CONFIG"
+	exit 1
+fi
+
+# TODO: More sanity checks on the config directory?
 
 TARGETS=()
 while [[ $# -gt 0 ]]; do
 	TARGETS+=("$1")
 	shift
 done
-
-# Use the arbitrary config name here
-# TODO: Pass config name in to script from docker-compose.yml?
-CONFIG="homelab"
 
 # If there is an embed script with the named config, use it
 if [[ -f "config/$CONFIG/embed.ipxe" ]]; then

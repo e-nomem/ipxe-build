@@ -3,6 +3,8 @@ ipxe:
     working_dir: /build/ipxe/src
     command:
         - /builder.sh
+        # Config name. Ensure it matches the destination volume path below
+        - homelab
         # --> Add build targets here <--
         - bin-i386-pcbios/undionly.kpxe
         - bin-i386-efi/ipxe.efi
@@ -12,9 +14,9 @@ ipxe:
     volumes:
         - ./builder.sh:/builder.sh:ro
         - ./out:/out:rw
-        # --> Mount custom local configurations here <--
-        # Mount your local config into /build/ipxe/src/config/homelab
-        # The destination directory within the container is hard coded to this value
-        # TODO: Make this configurable?
-        # - ./example-config:/build/ipxe/src/config/homelab:ro
+        # --> Mount custom named configurations here <--
+        # Mount your custom config into /build/ipxe/src/config/<config name>
+        # The config name used here should match the config name passed to the builder
+        # as the first arg.
+        # - ./example-config:/build/ipxe/src/config/example:ro
         - ./local-config:/build/ipxe/src/config/homelab:ro
